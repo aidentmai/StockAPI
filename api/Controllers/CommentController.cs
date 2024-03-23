@@ -65,7 +65,7 @@ namespace api.Controllers
                 return BadRequest("Stock does not exist");
             }
 
-            var username = User.GetUsername();
+            var username = User.Get();
 
             var commentModel = commentDto.ToCommentFromCreate(stockId);
             await _commentRepo.CreateAsync(commentModel);
