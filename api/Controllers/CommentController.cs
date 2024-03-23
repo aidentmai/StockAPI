@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using api.DTOs.Comment;
-using api.Extenstions;
+using api.Extensions;
 using api.Interfaces;
 using api.Mappers;
 using api.Models;

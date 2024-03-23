@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace api.Extenstions
+namespace api.Extensions
 {
     public static class ClaimsExtensions
     {
