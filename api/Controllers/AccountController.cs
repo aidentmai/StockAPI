@@ -1,14 +1,13 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using api.DTOs.Account;
+using api.Dtos.Account;
 using api.Interfaces;
 using api.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Controllers
@@ -30,16 +29,16 @@ namespace api.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == loginDto.Username.ToLower());
 
-            if(user == null) return Unauthorized("Invalid username!");
+            if (user == null) return Unauthorized("Invalid username!");
 
             var result = await _signinManager.CheckPasswordSignInAsync(user, loginDto.Password, false);
 
-            if(!result.Succeeded) return Unauthorized("Username not found and/or password incorrect");
+            if (!result.Succeeded) return Unauthorized("Username not found and/or password incorrect");
 
             return Ok(
                 new NewUserDto
@@ -56,9 +55,9 @@ namespace api.Controllers
         {
             try
             {
-                if(!ModelState.IsValid)
+                if (!ModelState.IsValid)
                     return BadRequest(ModelState);
-                
+
                 var appUser = new AppUser
                 {
                     UserName = registerDto.Username,
@@ -67,10 +66,10 @@ namespace api.Controllers
 
                 var createdUser = await _userManager.CreateAsync(appUser, registerDto.Password);
 
-                if(createdUser.Succeeded)
+                if (createdUser.Succeeded)
                 {
                     var roleResult = await _userManager.AddToRoleAsync(appUser, "User");
-                    if(roleResult.Succeeded)
+                    if (roleResult.Succeeded)
                     {
                         return Ok(
                             new NewUserDto
@@ -90,12 +89,11 @@ namespace api.Controllers
                 {
                     return StatusCode(500, createdUser.Errors);
                 }
-            } 
+            }
             catch (Exception e)
             {
                 return StatusCode(500, e);
             }
         }
     }
-
 }

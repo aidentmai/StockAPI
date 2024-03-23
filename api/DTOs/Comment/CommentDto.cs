@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace api.DTOs.Comment
+namespace api.Dtos.Comment
 {
     public class CommentDto
     {
